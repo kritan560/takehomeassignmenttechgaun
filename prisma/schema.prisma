@@ -9,3 +9,25 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+model Destination {
+  id          String  @id @default(uuid())
+  tags        Tags[]
+  name        String
+  description String?
+  image_url   String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Tags {
+  id  String @id @default(uuid())
+  tag String
+
+  destinationId String
+  destination   Destination @relation(fields: [destinationId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
