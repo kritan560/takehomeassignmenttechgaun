@@ -5,6 +5,11 @@ import { useEffect, useRef } from "react";
 import { TbMapPinPlus } from "react-icons/tb";
 import AddDestinationDialog from "./AddDestinationDialog";
 
+/**
+ * A component that renders a button to open a dialog for adding a new destination.
+ * Manages the dialog's open/close state using a Zustand store and handles clicks
+ * outside the button/dialog to close the dialog.
+ */
 const AddDestination = () => {
   const { setOpenAddDestinationDialog, openAddDestinationDialog } =
     useHomepageStore();
@@ -18,13 +23,24 @@ const AddDestination = () => {
       }
     }
 
-    document.addEventListener("click", (e) => {
+    /**
+     * Handles the click event when add destination is clicked
+     * @param e MouseEvent
+     * @returns void
+     */
+    function handleClickEvent(e: MouseEvent) {
       if (addDestinationDialogRef.current?.contains(e.target as Node)) {
         return;
       } else if (!addDestinationRef.current?.contains(e.target as Node)) {
         handleCloseAddDestinationDialog();
       }
-    });
+    }
+
+    document.addEventListener("click", handleClickEvent);
+
+    return () => {
+      document.removeEventListener("click", handleClickEvent); // Clean up the event listener
+    };
   }, [openAddDestinationDialog, setOpenAddDestinationDialog]);
 
   return (
