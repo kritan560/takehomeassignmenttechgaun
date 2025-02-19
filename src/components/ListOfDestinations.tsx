@@ -1,12 +1,13 @@
 "use client";
 
+import { blurDataURL } from "@/const";
 import { useHomepageStore } from "@/store/HomepageStore";
 import { AllDestinationsReturnType } from "@/types/returnTypes";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import nProgress from "nprogress";
 import { useEffect } from "react";
 import { IoMdWarning } from "react-icons/io";
-import nProgress from "nprogress";
 
 type ListOfDestinationsProps = {
   id?: string;
@@ -74,13 +75,11 @@ const ListOfDestinations = (props: ListOfDestinationsProps) => {
             <Image
               className="rounded-xl aspect-square object-cover"
               priority
-              src={
-                data.image_url ||
-                "https://images.pexels.com/photos/695644/pexels-photo-695644.jpeg?auto=compress&cs=tinysrgb&w=600"
-              }
+              src={data.image_url}
               alt={data.name || ""}
               width={250}
               height={250}
+              blurDataURL={blurDataURL}
             />
             <p className="mt-2 font-semibold font-mono">{data.name}</p>
             <p className="text-sm text-stone-600">

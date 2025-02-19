@@ -5,6 +5,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import ListOfDestinations from "../../../../../components/ListOfDestinations";
 import { RiFolderWarningFill } from "react-icons/ri";
+import { blackImage, blurDataURL } from "@/const";
 
 type DetailPageProps = {
   params: { id: string };
@@ -43,17 +44,18 @@ const DetailPage = (props: DetailPageProps) => {
       <Image
         className="rounded-xl aspect-video object-cover"
         priority
-        src={
-          destination.image_url ||
-          "https://images.pexels.com/photos/695644/pexels-photo-695644.jpeg?auto=compress&cs=tinysrgb&w=600"
-        }
+        src={destination.image_url || blackImage}
         alt={destination.name || ""}
         width={550}
+        blurDataURL={blurDataURL}
+        placeholder="blur"
         height={550}
       />
+
       <p className="font-semibold text-stone-600 mt-2">
         Tags: {destination.tags.map((tag) => tag.tag)}
       </p>
+
       {destination.description && destination.description.length > 0 ? (
         <p className="text-stone-600">
           <span className="font-semibold">Description: </span>
