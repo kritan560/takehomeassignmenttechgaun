@@ -12,6 +12,14 @@ type ListOfDestinationsProps = {
   id?: string;
 };
 
+/**
+ * Component to display a list of destinations.
+ * Fetches destination data from the API and renders it in a grid layout.
+ * Supports filtering destinations based on an optional ID prop.
+ *
+ * @param {ListOfDestinationsProps} props - The component's props.
+ * @param {string} [props.id] - Optional ID of a destination to exclude from the list.
+ */
 const ListOfDestinations = (props: ListOfDestinationsProps) => {
   const { id } = props;
   const { openAddDestinationDialog, allDestinations, setAllDestinations } =
@@ -20,9 +28,13 @@ const ListOfDestinations = (props: ListOfDestinationsProps) => {
 
   useEffect(() => {
     getListOfDestinations();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [openAddDestinationDialog]);
 
+  /**
+   * Fetches the list of destinations from the API.
+   * Filters the destinations if an ID is provided in the props.
+   */
   async function getListOfDestinations() {
     try {
       const res = await fetch("/api/all-destinations", { method: "GET" });
@@ -34,17 +46,22 @@ const ListOfDestinations = (props: ListOfDestinationsProps) => {
       } else {
         setAllDestinations(data);
       }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       console.error("Something went wrong");
     }
   }
 
+  /**
+   * Handles clicks on destination items, navigating to the destination's page.
+   * @param {string} id - The ID of the destination to navigate to.
+   */
   function handleDestinationClick(id: string) {
     router.push(`/${id}`);
     nProgress.start();
   }
 
+  // Conditional rendering based on whether destinations are loaded
   if (allDestinations && allDestinations.length > 0) {
     return (
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 lg:grid-cols-5 mx-auto">
