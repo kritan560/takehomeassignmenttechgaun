@@ -1,6 +1,5 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { useHomepageStore } from "@/store/HomepageStore";
 import { AllDestinationsReturnType } from "@/types/returnTypes";
 import nProgress from "nprogress";
@@ -127,9 +126,9 @@ const SearchBar = () => {
         <div className="px-2 py-1 w-32 md:flex justify-end hidden">
           <div
             onClick={handleTagSearch}
-            className={cn(
+            className={
               "bg-sky-500 h-14 flex justify-center items-center hover:bg-sky-500/80 cursor-pointer transition-all duration-300 rounded-full hover:w-32 w-14"
-            )}
+            }
           >
             <IoSearch size={26} className="text-stone-100" />
           </div>
