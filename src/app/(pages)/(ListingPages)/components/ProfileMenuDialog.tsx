@@ -1,5 +1,6 @@
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
+import nProgress from "nprogress";
 import { IoMdLogIn, IoMdLogOut } from "react-icons/io";
 
 const ProfileMenuDialog = () => {
@@ -9,6 +10,7 @@ const ProfileMenuDialog = () => {
   function handleLogout() {
     localStorage.removeItem("isAuth");
     router.replace("/sign-in");
+    nProgress.start();
   }
 
   return (
