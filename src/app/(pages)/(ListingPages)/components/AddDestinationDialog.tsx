@@ -3,6 +3,7 @@ import CustomInput from "@/components/CustomInput";
 import CustomTextArea from "@/components/CustomTextArea";
 import { useDestinationStore } from "@/store/DestinationStore";
 import { useHomepageStore } from "@/store/HomepageStore";
+import { useState } from "react";
 import toast from "react-hot-toast";
 
 const AddDestinationDialog = () => {
@@ -18,10 +19,13 @@ const AddDestinationDialog = () => {
   } = useDestinationStore();
   const { openAddDestinationDialog, setOpenAddDestinationDialog } =
     useHomepageStore();
+  const [disable, setDisable] = useState(false);
 
   async function handleSaveClick() {
     try {
-      await fetch("/api/create-destination", {
+      setDisable(true);
+
+      const res = await fetch("/api/create-destination", {
         method: "POST",
         body: JSON.stringify({
           destination,
@@ -33,6 +37,10 @@ const AddDestinationDialog = () => {
 
       setOpenAddDestinationDialog(false);
       toast.success("Destination Added");
+      if (res.ok) {
+        setDisable(false);
+      }
+
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       toast.success("Something went wrong");
@@ -61,7 +69,7 @@ const AddDestinationDialog = () => {
             onChange={setDestinationImage}
           />
 
-          <Button onClick={handleSaveClick} name="Save" />
+          <Button disable={disable} onClick={handleSaveClick} name="Save" />
         </div>
       )}
     </div>
