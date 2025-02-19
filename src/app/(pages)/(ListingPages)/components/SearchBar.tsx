@@ -80,7 +80,11 @@ const SearchBar = () => {
 
   async function handleEnterKeyUp(e: KeyboardEvent<HTMLInputElement>) {
     if (e.key == "Enter") {
+      nProgress.start();
       const res = await fetch(`/api/filter/${tags}`, { method: "GET" });
+      if (res.ok) {
+        nProgress.done();
+      }
       const data = (await res.json()) as AllDestinationsReturnType;
       setAllDestinations(data);
     }
