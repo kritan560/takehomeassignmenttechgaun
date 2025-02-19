@@ -5,7 +5,9 @@ export async function GET(
   request: Request,
   { params }: { params: { filteredName: string } }
 ) {
-  const filteredKeyArray = params.filteredName.split(",");
+  const filteredKeyArray = params.filteredName
+    .split(",")
+    .map((data) => data.trim());
   const totalFiltered = filteredKeyArray.length;
   const filteredData: AllDestinationsReturnType = [];
 
