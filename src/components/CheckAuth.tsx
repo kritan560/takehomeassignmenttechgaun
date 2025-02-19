@@ -16,7 +16,6 @@ const CheckAuth = ({ children }: { children: React.ReactNode }) => {
 
     if (!isAuth) {
       router.push("/sign-in");
-      return;
     } else {
       return <>{children}</>;
     }

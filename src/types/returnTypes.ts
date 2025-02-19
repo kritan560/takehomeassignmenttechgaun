@@ -1,5 +1,5 @@
 export type AllDestinationsReturnType = {
-  description: string;
+  description: string | null;
   id: string;
   image_url: string;
   name: string;
@@ -7,7 +7,7 @@ export type AllDestinationsReturnType = {
 }[];
 
 export type SingleDestinationReturnType = {
-  description: string;
+  description: string | null;
   id: string;
   image_url: string;
   name: string;

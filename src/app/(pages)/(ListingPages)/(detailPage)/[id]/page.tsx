@@ -54,7 +54,7 @@ const DetailPage = (props: DetailPageProps) => {
       <p className="font-semibold text-stone-600 mt-2">
         Tags: {destination.tags.map((tag) => tag.tag)}
       </p>
-      {destination.description.length > 0 ? (
+      {destination.description && destination.description.length > 0 ? (
         <p className="text-stone-600">
           <span className="font-semibold">Description: </span>
           {destination.description}
