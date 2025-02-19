@@ -3,6 +3,10 @@
 import { useHomepageStore } from "@/store/HomepageStore";
 import { useEffect, useState } from "react";
 
+/**
+ * A component that displays the current time, updating every second.
+ * Allows focusing the search input when clicked.
+ */
 const TimeBar = () => {
   const { setFocusOnInput } = useHomepageStore();
   const [time, setTime] = useState(new Date());
@@ -22,7 +26,11 @@ const TimeBar = () => {
 
   if (isHydrated)
     return (
-      <div title="Current Time" className="cursor-pointer" onClick={() => setFocusOnInput(true)}>
+      <div
+        title="Current Time"
+        className="cursor-pointer"
+        onClick={() => setFocusOnInput(true)}
+      >
         <p className="font-semibold text-lg text-stone-600 shadow transition duration-300 hover:shadow-lg px-4 font-mono">
           {`${time.getHours()} : ${time.getMinutes()} : ${
             time.getSeconds() > 9 ? time.getSeconds() : "0" + time.getSeconds()

@@ -59,6 +59,9 @@ const SearchBar = () => {
     }
   }
 
+  /**
+   * Handle the logic when clear button tag is clicked
+   */
   async function handleClearTag() {
     try {
       nProgress.start();
