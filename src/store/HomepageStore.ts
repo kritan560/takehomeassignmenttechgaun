@@ -18,6 +18,16 @@ interface HomepageStore {
   setAllDestinations : (value : AllDestinationsReturnType) => void;
 }
 
+/**
+ * Zustand store for managing homepage-related state.
+ * This store holds various boolean flags to control the visibility of UI elements,
+ * such as dialogs and input focus, as well as the list of destinations.
+ *
+ * @example
+ * const { focusOnInput, setFocusOnInput, openDestinationDialog, setOpenDestinationDialog } = useHomepageStore();
+ * setFocusOnInput(true); // Focus the search input
+ * setOpenDestinationDialog(true); // Open the destination details dialog
+ */
 export const useHomepageStore = create<HomepageStore>()((set) => ({
   focusOnInput: false,
   setFocusOnInput: (value: boolean) => set({ focusOnInput: value }),
