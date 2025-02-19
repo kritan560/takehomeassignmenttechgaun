@@ -1,3 +1,5 @@
+export const revalidate = 0;
+
 import { prisma } from "../../../../prisma/db";
 
 /**

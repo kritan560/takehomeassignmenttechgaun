@@ -1,3 +1,5 @@
+export const revalidate = 0;
+
 import { AllDestinationsReturnType } from "@/types/returnTypes";
 import { prisma } from "../../../../../prisma/db";
 

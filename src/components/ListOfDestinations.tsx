@@ -28,30 +28,34 @@ const ListOfDestinations = (props: ListOfDestinationsProps) => {
   const router = useRouter();
 
   useEffect(() => {
-    getListOfDestinations();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [openAddDestinationDialog]);
+    /**
+     * Fetches the list of destinations from the API.
+     * Filters the destinations if an ID is provided in the props.
+     */
+    async function getListOfDestinations() {
+      try {
+        const res = await fetch("/api/all-destinations", { cache: "no-store" });
+        const data = (await res.json()) as AllDestinationsReturnType;
 
-  /**
-   * Fetches the list of destinations from the API.
-   * Filters the destinations if an ID is provided in the props.
-   */
-  async function getListOfDestinations() {
-    try {
-      const res = await fetch("/api/all-destinations", { method: "GET" });
-      const data = (await res.json()) as AllDestinationsReturnType;
-
-      if (id) {
-        const filteredDestinationData = data.filter((d) => d.id != id);
-        setAllDestinations(filteredDestinationData);
-      } else {
-        setAllDestinations(data);
+        if (id) {
+          const filteredDestinationData = data.filter((d) => d.id != id);
+          setAllDestinations(filteredDestinationData);
+        } else {
+          setAllDestinations(data);
+        }
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      } catch (error) {
+        console.error("Something went wrong");
       }
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
-      console.error("Something went wrong");
     }
-  }
+
+    getListOfDestinations();
+  }, [
+    openAddDestinationDialog,
+    id,
+    setAllDestinations,
+    allDestinations.length,
+  ]);
 
   /**
    * Handles clicks on destination items, navigating to the destination's page.

@@ -1,3 +1,5 @@
+export const revalidate = 0;
+
 import { prisma } from "../../../../prisma/db";
 
 /**
@@ -12,22 +14,25 @@ import { prisma } from "../../../../prisma/db";
  */
 export async function POST(request: Request) {
   const data = await request.json();
+  
   if (!data.destination || !data.destinationImage || !data.destinationTag) {
     return Response.json("Please Provide the data", { status: 400 }); // Include a status code
   }
 
   try {
-    await prisma.destination.create({
+    const newDestination = await prisma.destination.create({
       data: {
         description: data.destinationDescription,
         image_url: data.destinationImage,
         name: data.destination,
         tags: { create: { tag: data.destinationTag } },
       },
+      include: { tags: true },
     });
-    return Response.json("created", { status: 201 }); // Include a status code
+    
+    return Response.json(newDestination); // Include a status code
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    console.error("Error creating destination:", error);
     return Response.json("Failed to create destination", { status: 500 }); // Handle errors and return a 500 status code
   }
 }

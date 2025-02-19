@@ -3,6 +3,7 @@ import CustomInput from "@/components/CustomInput";
 import CustomTextArea from "@/components/CustomTextArea";
 import { useDestinationStore } from "@/store/DestinationStore";
 import { useHomepageStore } from "@/store/HomepageStore";
+import { SingleDestinationReturnType } from "@/types/returnTypes";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -17,8 +18,12 @@ const AddDestinationDialog = () => {
     destinationImage,
     destinationTag,
   } = useDestinationStore();
-  const { openAddDestinationDialog, setOpenAddDestinationDialog } =
-    useHomepageStore();
+  const {
+    openAddDestinationDialog,
+    setOpenAddDestinationDialog,
+    setAllDestinations,
+    allDestinations,
+  } = useHomepageStore();
   const [disable, setDisable] = useState(false);
 
   async function handleSaveClick() {
@@ -33,10 +38,16 @@ const AddDestinationDialog = () => {
           destinationImage,
           destinationTag,
         }),
+        cache: "no-store",
       });
 
-      setOpenAddDestinationDialog(false);
+      const data = (await res.json()) as SingleDestinationReturnType;
+
       toast.success("Destination Added");
+
+      setAllDestinations([...allDestinations, data]);
+      setOpenAddDestinationDialog(false);
+
       if (res.ok) {
         setDisable(false);
       }
