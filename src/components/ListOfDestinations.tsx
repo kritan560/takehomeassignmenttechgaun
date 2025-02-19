@@ -50,12 +50,7 @@ const ListOfDestinations = (props: ListOfDestinationsProps) => {
     }
 
     getListOfDestinations();
-  }, [
-    openAddDestinationDialog,
-    id,
-    setAllDestinations,
-    allDestinations.length,
-  ]);
+  }, [openAddDestinationDialog, id, setAllDestinations]);
 
   /**
    * Handles clicks on destination items, navigating to the destination's page.
