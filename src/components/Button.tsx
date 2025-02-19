@@ -8,6 +8,7 @@ type ButtonProps = {
   name: string;
   /** Callback function to be called when the button is clicked. */
   onClick: () => void;
+  disable?: boolean;
 };
 
 /**
@@ -21,9 +22,10 @@ type ButtonProps = {
  * <Button name="Submit" onClick={() => console.log("Button clicked")} />
  */
 const Button = (props: ButtonProps) => {
-  const { name, onClick } = props;
+  const { name, onClick, disable } = props;
   return (
     <button
+      disabled={disable}
       onClick={onClick}
       className="capitalize bg-sky-500 text-white hover:bg-sky-600/80 transition w-full px-4 py-2 rounded-md"
     >
