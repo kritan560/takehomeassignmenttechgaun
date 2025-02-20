@@ -36,7 +36,7 @@ const AddDestinationDialog = () => {
           destination,
           destinationDescription,
           destinationImage,
-          destinationTag,
+          destinationTag: destinationTag.toLowerCase(),
         }),
         cache: "no-store",
       });

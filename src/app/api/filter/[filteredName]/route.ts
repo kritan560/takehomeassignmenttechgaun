@@ -27,7 +27,11 @@ export async function GET(
 
   for (let i = 0; i < totalFiltered; i++) {
     const data = await prisma.destination.findMany({
-      where: { tags: { some: { tag: { contains: filteredKeyArray[i] } } } },
+      where: {
+        tags: {
+          some: { tag: { contains: filteredKeyArray[i].toLowerCase() } },
+        },
+      },
       include: { tags: true },
     });
 
